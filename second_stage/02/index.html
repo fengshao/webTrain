@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>02—肖金峰</title>
+	<style>
+		body, p, ul, dl, dd, ol, h1, h2, h3, h4, h5, h6 {
+			margin: 0
+		}
+
+		ul, ol {
+			padding-left: 0;
+			list-style: none
+		}
+
+		em, i {
+			font-style: normal
+		}
+
+		strong, b {
+			font-style: normal
+		}
+
+		a {
+			text-decoration: none
+		}
+
+		#div1 {
+			width: 500px;
+			height: 100px;
+			margin: 50px auto;
+			background-color: #d28f9b;
+		}
+
+		#div2 {
+			width: 500px;
+			height: 100px;
+			margin: 50px auto;
+			background-color: aquamarine;
+		}
+	</style>
+</head>
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+
+<script>
+	var div1Elm = document.getElementById("div1");
+	var div2Elm = document.getElementById("div2");
+
+	div1Elm.onmouseenter = function () {
+		div1Elm.style.backgroundColor = "red";
+	};
+	div1Elm.onmouseleave = function () {
+		div1Elm.style.backgroundColor = "black";
+	};
+
+	div2Elm.onmouseenter = function () {
+		div2Elm.style.backgroundColor = "red";
+	};
+	div2Elm.onmouseleave = function () {
+		div2Elm.style.backgroundColor = "black";
+	};
+
+</script>
+
+</body>
+</html>
