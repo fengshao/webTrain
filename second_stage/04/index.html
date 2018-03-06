@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>Title</title>
+	<style>
+		body, p, ul, dl, dd, ol, h1, h2, h3, h4, h5, h6 {
+			margin: 0
+		}
+
+		ul, ol {
+			padding-left: 0;
+			list-style: none
+		}
+
+		em, i {
+			font-style: normal
+		}
+
+		strong, b {
+			font-style: normal
+		}
+
+		a {
+			text-decoration: none
+		}
+
+		input, button, select, textarea {
+			outline: none;
+		}
+
+		textarea {
+			resize: none;
+		}
+
+		.content {
+			width: 500px;
+			margin: 50px auto;
+			border: 1px solid #cc51f0;
+			/*padding-bottom: 20px;*/
+		}
+
+		.chat-window {
+			height: 50px;
+			/*margin: 0 0 10px;*/
+			padding: 10px 10px 10px;
+			background-color: blanchedalmond;
+		}
+
+		.chat-window span {
+			display: none;
+		}
+
+		.head-portrait {
+			display: inline-block;
+			font-size: 0;
+		}
+
+		img {
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+		}
+
+		.img2 {
+			display: none;
+		}
+
+		.textarea-cls {
+			vertical-align: bottom;
+			height: 40px;
+			margin: 0;
+			padding: 5px;
+			width: 60%;
+		}
+
+		.btn-cls {
+			vertical-align: bottom;
+			margin-left: 10px;
+		}
+
+		.title-content {
+			padding: 0 10px;
+		}
+
+		.title-cls {
+			margin-top: 10px;
+			border-bottom: 1px dotted #000000;
+			padding-bottom: 10px;
+			margin-bottom: 10px;
+			min-height: 50px;
+		}
+
+		.title-cls img {
+			display: inline-block;
+			vertical-align: top;
+		}
+
+		.title-cls span {
+			display: inline-block;
+			width: 360px;
+			word-break: break-all;
+		}
+
+		.title-cls.title-left span {
+			padding-right: 52px;
+		}
+
+		.title-cls.title-right span {
+			padding-left: 52px;
+		}
+
+		.title-right img {
+			float: right;
+		}
+
+		.operation-content {
+			float: right;
+			font-size: 40px;
+			color: #fff;
+			background-color: #b7b1b1;
+			border-radius: 50%;
+			width: 50px;
+			height: 50px;
+			text-align: center;
+			line-height: 45px;
+		}
+	</style>
+</head>
+<body>
+<div class="content">
+	<div class="chat-window">
+		<div class="head-portrait">
+			<img class="img1" src="images/1.png">
+			<img class="img2" src="images/2.png">
+		</div>
+		<span>
+			<textarea class="textarea-cls"></textarea>
+			<button class="btn-cls">发送</button>
+		</span>
+		<div class="operation-content">+</div>
+	</div>
+	<div class="title-content">
+	</div>
+</div>
+<script>
+	var img1 = document.querySelector(".img1"),
+		img2 = document.querySelector(".img2"),
+		btn = document.querySelector(".btn-cls"),
+		textareaElm = document.querySelector(".textarea-cls"),
+		titleContentElm = document.querySelector(".title-content"),
+		spanElm = document.querySelector(".chat-window").getElementsByTagName("span")[0],
+		operationContentElm = document.querySelector(".operation-content"),
+		imgUrl = img1.getAttribute("src"),
+		operationContentType = 1,
+		type = 1;
+	img1.onclick = function () {
+		img2.style.display = "block";
+		this.style.display = "none";
+		imgUrl = img2.getAttribute("src");
+		type = 2;
+	}
+	img2.onclick = function () {
+		img1.style.display = "block";
+		imgUrl = img1.getAttribute("src");
+		this.style.display = "none";
+		type = 1;
+	}
+	operationContentElm.onclick = function () {
+		if (operationContentType > 0) {
+			spanElm.style.display = "inline";
+			this.innerHTML = "-";
+		} else {
+			spanElm.style.display = "none";
+			this.innerHTML = "+";
+		}
+		operationContentType = -operationContentType;
+
+	}
+	btn.onclick = function () {
+		var clsName = "title-left";
+		if (textareaElm.value.trim()) {
+			if (type == 1) {
+				clsName = "title-left";
+			} else if (type == 2) {
+				clsName = "title-right";
+			}
+			titleContentElm.innerHTML += '<div class="title-cls ' + clsName + '"> <img src="' + imgUrl + '"> <span>' + textareaElm.value + '</span></div>'
+			textareaElm.value = "";
+			return
+		}
+		alert("请输入内容")
+
+	}
+
+
+</script>
+
+</body>
+</html>
