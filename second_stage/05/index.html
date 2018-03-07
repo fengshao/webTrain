@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>05-肖金峰</title>
+	<style>
+		body, p, ul, dl, dd, ol, h1, h2, h3, h4, h5, h6 {
+			margin: 0
+		}
+
+		ul, ol {
+			padding-left: 0;
+			list-style: none
+		}
+
+		em, i {
+			font-style: normal
+		}
+
+		strong, b {
+			font-style: normal
+		}
+
+		a {
+			text-decoration: none
+		}
+
+		input, button, select, textarea {
+			outline: none;
+		}
+
+		textarea {
+			resize: none;
+		}
+
+		.content {
+			width: 640px;
+			margin: 50px auto;
+		}
+
+		.carousel-content {
+			position: relative;
+			width: 640px;
+			height: 360px;
+		}
+
+		ul li {
+			position: absolute;
+			display: none;
+			left: 0;
+			top: 0;
+		}
+
+		li.active {
+			display: block;
+		}
+
+		ul li img {
+			width: 100%;
+			height: 100%;
+		}
+
+		.arrow-btn {
+			position: absolute;
+			width: 30px;
+			height: 40px;
+			font-size: 20px;
+			line-height: 40px;
+			color: #ffffff;
+			top: 50%;
+			text-align: center;
+			font-weight: bold;
+			background-color: rgba(183, 177, 177, 0.7);
+			cursor: pointer;
+
+		}
+
+		.left-arrow {
+			left: 0;
+		}
+
+		.right-arrow {
+			right: 0;
+		}
+
+		.prompt-cls {
+			position: absolute;
+			text-align: center;
+			width: 100%;
+			height: 20px;
+			line-height: 20px;
+			font-size: 16px;
+			color: #ffffff;
+			background-color: #b7b1b1;
+			z-index: 99;
+			background-color: rgba(183, 177, 177, 0.7);
+
+		}
+
+		.num-cls {
+			top: 0;
+		}
+
+		.title-cls {
+			bottom: 0;
+
+		}
+
+		.operation-content {
+			width: 100%;
+			height: 30px;
+			margin-top: 20px;
+			text-align: center;
+			font-size: 0;
+		}
+
+		.operation-btn {
+			width: 200px;
+			height: 30px;
+			line-height: 30px;
+			display: inline-block;
+			background-color: #dccfcf;
+			text-align: center;
+			border-radius: 10px;
+			font-size: 16px;
+			margin-left: 10px;
+			cursor: pointer;
+		}
+
+		.active-btn {
+			background-color: #635c5c;
+		}
+
+	</style>
+</head>
+<body>
+
+<div class="content">
+	<div class="carousel-content">
+		<div class="prompt-cls num-cls">1/5</div>
+		<ul>
+			<li class="active">
+				<img src="images/1.png" alt="第一张图片"/>
+			</li>
+			<li>
+				<img src="images/2.png" alt="第二张图片"/>
+			</li>
+			<li>
+				<img src="images/3.png" alt="第三张图片"/>
+			</li>
+			<li>
+				<img src="images/4.png" alt="第四张图片"/>
+			</li>
+			<li>
+				<img src="images/5.png" alt="第五张图片"/>
+			</li>
+		</ul>
+		<div class="prompt-cls title-cls">第一张图片</div>
+		<div class="arrow-btn left-arrow">&lt;</div>
+		<div class="arrow-btn right-arrow">&gt;</div>
+	</div>
+
+	<div class="operation-content">
+		<div class="no-loop operation-btn active-btn">正常模式</div>
+		<div class="is-loop operation-btn ">循环模式</div>
+	</div>
+
+</div>
+
+<script>
+	var index = 0,
+		liList = document.querySelectorAll(".carousel-content li"),
+		allNum = liList.length,
+		numElm = document.querySelector(".num-cls"),
+		titleElm = document.querySelector(".title-cls"),
+		leftBtn = document.querySelector(".left-arrow"),
+		rightBtn = document.querySelector(".right-arrow"),
+		noLoop = document.querySelector(".no-loop"),
+		isLoop = document.querySelector(".is-loop"),
+		loopType = false;
+
+	rightBtn.onclick = function () {
+		if (!loopType) {
+
+			if (index === allNum - 1) {
+				return
+			}
+		}
+
+		liList[index].className = "";
+		if (index === allNum - 1) {
+			index = 0;
+		} else {
+			index++;
+		}
+		liList[index].className = "active";
+		numElm.innerHTML = index + 1 + "/" + allNum;
+		titleElm.innerHTML = liList[index].querySelector("img").getAttribute("alt");
+	}
+
+	leftBtn.onclick = function () {
+		if (!loopType) {
+			if (index === 0) {
+				return
+			}
+		}
+
+		liList[index].className = "";
+		if (index > 0) {
+			index--;
+		}
+		liList[index].className = "active";
+		numElm.innerHTML = index + 1 + "/" + allNum;
+		titleElm.innerHTML = liList[index].querySelector("img").getAttribute("alt");
+	}
+
+	noLoop.onclick = function () {
+		loopType = !loopType;
+		this.className = "no-loop operation-btn active-btn";
+		isLoop.className = "no-loop operation-btn";
+	}
+
+	isLoop.onclick = function () {
+		loopType = !loopType;
+		this.className = "no-loop operation-btn active-btn";
+		noLoop.className = "no-loop operation-btn";
+	}
+
+</script>
+
+</body>
+</html>
