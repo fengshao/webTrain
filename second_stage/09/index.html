@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>09-肖金峰</title>
+	<style>
+		body, p, ul, dl, dd, ol, h1, h2, h3, h4, h5, h6 {
+			margin: 0
+		}
+
+		ul, ol {
+			padding-left: 0;
+			list-style: none
+		}
+
+		em, i {
+			font-style: normal
+		}
+
+		strong, b {
+			font-style: normal
+		}
+
+		a {
+			text-decoration: none
+		}
+
+		.content {
+			margin: 50px auto;
+			width: 300px;
+			border: 1px solid #b7b1b1;
+		}
+
+		ul {
+			/*border: 1px solid #b7b1b1;*/
+		}
+
+		li {
+			overflow: hidden;
+			font-size: 0;
+			height: 40px;
+			line-height: 40px;
+			border-bottom: 1px solid #cccccc;
+			padding-left: 10px;
+		}
+
+		span {
+			width: 20px;
+			height: 20px;
+			display: inline-block;
+			background-image: url("./images/ck.png");
+			vertical-align: middle;
+		}
+
+		label {
+			font-size: 16px;
+			height: 20px;
+			line-height: 20px;
+			vertical-align: middle;
+			display: inline-block;
+		}
+
+		span.select {
+			background-image: url("./images/cked.jpg");
+
+		}
+
+		.operation {
+			height: 60px;
+			line-height: 60px;
+			padding-left: 10px;
+		}
+	</style>
+</head>
+<body>
+<div class="content">
+	<ul>
+		<li>
+			<span></span>
+			<label>选项1</label>
+		</li>
+		<li>
+			<span></span>
+			<label>选项2</label>
+		</li>
+		<li>
+			<span></span>
+			<label>选项3</label>
+		</li>
+		<li>
+			<span></span>
+			<label>选项4</label>
+		</li>
+	</ul>
+	<div class="operation">
+		<span></span>
+		<label>全选</label>
+	</div>
+
+</div>
+
+<script>
+
+	var btn = document.querySelector(".operation"),
+		liList = document.getElementsByTagName("li"),
+		selectNum = 0;
+	btn.flag = false;
+
+	for (var i = 0, len = liList.length; i < len; i++) {
+		liList[i].flag = false;
+		liList[i].onclick = function () {
+			if (this.flag) {
+				this.getElementsByTagName("span")[0].className = "";
+				selectNum--;
+			} else {
+				this.getElementsByTagName("span")[0].className = "select";
+				selectNum++;
+			}
+			this.flag = !this.flag;
+			if (selectNum === liList.length) {
+				btn.flag = true;
+				btn.getElementsByTagName("span")[0].className = "select";
+			} else {
+				btn.flag = false;
+				btn.getElementsByTagName("span")[0].className = "";
+			}
+
+		}
+	}
+
+	btn.onclick = function () {
+		if (this.flag) {
+			for (var i = 0, len = liList.length; i < len; i++) {
+				liList[i].getElementsByTagName("span")[0].className = "";
+				liList[i].flag = false;
+			}
+			btn.getElementsByTagName("span")[0].className = "";
+			this.flag = false;
+			selectNum = 0;
+		} else {
+			for (var i = 0, len = liList.length; i < len; i++) {
+				liList[i].flag = true;
+				liList[i].getElementsByTagName("span")[0].className = "select";
+			}
+			selectNum = liList.length;
+			btn.getElementsByTagName("span")[0].className = "select";
+			this.flag = true;
+		}
+	}
+
+
+</script>
+
+</body>
+</html>
