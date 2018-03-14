@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>Title</title>
+	<style>
+		body, p, ul, dl, dd, ol, h1, h2, h3, h4, h5, h6 {
+			margin: 0
+		}
+
+		ul, ol {
+			padding-left: 0;
+			list-style: none
+		}
+
+		em, i {
+			font-style: normal
+		}
+
+		strong, b {
+			font-style: normal
+		}
+
+		a {
+			text-decoration: none
+		}
+
+		.content {
+			margin: 50px auto;
+			width: 80%;
+		}
+
+		ul {
+			width: 200px;
+		}
+
+		li {
+			border-bottom: 1px solid #000000;
+			height: 30px;
+			overflow: hidden;
+			cursor: pointer;
+
+		}
+
+		li.active {
+			height: auto;
+		}
+
+		h3 {
+			background-color: #d28f9b;
+			padding-left: 10px;
+			height: 30px;
+			line-height: 30px;
+		}
+
+		p {
+			padding-left: 20px;
+			border-bottom: 1px dotted #cccccc;
+			height: 30px;
+			line-height: 30px;
+		}
+	</style>
+</head>
+<body>
+
+<div class="content">
+	<ul>
+		<li>
+			<h3>点我</h3>
+			<p>1</p>
+			<p>2</p>
+			<p>3</p>
+			<p>4</p>
+		</li>
+		<li>
+			<h3>别点他，点我</h3>
+			<p>5</p>
+			<p>6</p>
+			<p>7</p>
+			<p>8</p>
+		</li>
+		<li>
+			<h3>別理他們，点我</h3>
+			<p>9</p>
+			<p>10</p>
+			<p>11</p>
+			<p>12</p>
+		</li>
+	</ul>
+</div>
+
+<script>
+	var liList = document.getElementsByTagName("li"),
+		h3List = document.getElementsByTagName("h3"),
+		pList = document.getElementsByTagName("p"),
+		index = null;
+
+	for (var i = 0, len = h3List.length; i < len; i++) {
+		h3List[i].index = i;
+		h3List[i].flag = false;
+		h3List[i].onclick = function () {
+			for (i = 0, len = liList.length; i < len; i++) {
+				liList[i].className = "";
+				if (i !== this.index) {
+					h3List[i].flag = false;
+				}
+			}
+
+			if (this.flag) {
+				this.flag = false;
+				liList[this.index].className = "";
+			} else {
+				this.flag = true;
+				liList[this.index].className = "active";
+			}
+			index = this.index;
+		}
+	}
+
+	// for (var i = 0, len = h3List.length; i < len; i++) {
+	// 	h3List[i].index = i;
+	// 	h3List[i].onclick = function () {
+	// 		if (index !== null) {
+	// 			liList[index].className = "";
+	// 		}
+	// 		index = this.index;
+	//
+	// 		liList[index].className = "active";
+	// 	}
+	// }
+
+	for (i = 0, len = pList.length; i < len; i++) {
+		pList[i].onmouseenter = function () {
+			this.style.backgroundColor = "#ff00ff"
+		}
+
+		pList[i].onmouseleave = function () {
+			this.style.backgroundColor = "#ffffff"
+		}
+	}
+
+</script>
+
+
+</body>
+</html>

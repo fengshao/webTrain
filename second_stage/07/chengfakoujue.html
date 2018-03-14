@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>07-肖金峰</title>
+	<style>
+		body, p, ul, dl, dd, ol, h1, h2, h3, h4, h5, h6 {
+			margin: 0
+		}
+
+		ul, ol {
+			padding-left: 0;
+			list-style: none
+		}
+
+		em, i {
+			font-style: normal
+		}
+
+		strong, b {
+			font-style: normal
+		}
+
+		a {
+			text-decoration: none
+		}
+
+		.content {
+			margin: 50px auto;
+			width: 80%;
+		}
+
+		.contnt1, .contnt2, .contnt3, .contnt4 {
+			border-bottom: 1px solid #000000;
+			padding-bottom: 20px;
+		}
+
+		.cls {
+			display: inline-block;
+			border: 1px solid #000000;
+			padding: 5px;
+			margin-right: 5px;
+			width: 80px;
+		}
+
+		.row {
+			margin-top: 5px;
+		}
+
+	</style>
+</head>
+<body>
+<div class="content">
+
+	<div class="contnt1">
+	</div>
+	<div class="contnt2">
+	</div>
+	<div class="contnt3">
+	</div>
+	<div class="contnt4">
+	</div>
+
+</div>
+<script>
+
+	var content1Elm = "", content2Elm = "", content3Elm = "", content4Elm = "";
+	for (var i = 1; i < 9; i++) {
+		content1Elm += '<div class="row">';
+		for (var j = 1; j <= i; j++) {
+			content1Elm += '<div class="cls">' + i + ' *  ' + j + ' = ' + (i * j) + '</div>'
+		}
+		content1Elm += '</div>'
+	}
+
+	for (var i = 1; i <= 9; i++) {
+		content2Elm += '<div class="row">';
+		for (var j = i; j <= 9; j++) {
+			content2Elm += '<div class="cls">' + i + ' *  ' + j + ' = ' + (i * j) + '</div>'
+		}
+		content2Elm += '</div>'
+	}
+
+	for (var i = 9; i > 0; i--) {
+		content3Elm += '<div class="row">';
+
+		for (var j = 1; j <= i; j++) {
+			content3Elm += '<div class="cls">' + i + ' *  ' + j + ' = ' + (i * j) + '</div>'
+		}
+
+		content3Elm += '</div>'
+	}
+
+	for (var i = 9; i > 0; i--) {
+		content4Elm += '<div class="row">';
+
+		for (var j = i; j <= 9; j++) {
+			content4Elm += '<div class="cls">' + i + ' *  ' + j + ' = ' + (i * j) + '</div>'
+		}
+
+		content4Elm += '</div>'
+	}
+
+	document.querySelector(".contnt1").innerHTML = content1Elm;
+	document.querySelector(".contnt2").innerHTML = content2Elm;
+	document.querySelector(".contnt3").innerHTML = content3Elm;
+	document.querySelector(".contnt4").innerHTML = content4Elm;
+
+</script>
+</body>
+</html>
