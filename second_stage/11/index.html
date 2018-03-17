@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>11-肖金峰</title>
+	<style>
+		body, p, ul, dl, dd, ol, h1, h2, h3, h4, h5, h6 {
+			margin: 0
+		}
+
+		textarea:disabled, input:not([type]):disabled, input[type="color" i]:disabled, input[type="date" i]:disabled, input[type="datetime" i]:disabled, input[type="datetime-local" i]:disabled, input[type="email" i]:disabled, input[type="month" i]:disabled, input[type="password" i]:disabled, input[type="number" i]:disabled, input[type="search" i]:disabled, input[type="tel" i]:disabled, input[type="text" i]:disabled, input[type="time" i]:disabled, input[type="url" i]:disabled, input[type="week" i]:disabled {
+			background-color: transparent;
+		}
+
+		input, button, select, textarea {
+			outline: none;
+		}
+
+		textarea {
+			resize: none;
+		}
+
+		textarea {
+			width: 100%;
+			height: 100%;
+			border: 0;
+		}
+
+		ul, ol {
+			padding-left: 0;
+			list-style: none
+		}
+
+		em, i {
+			font-style: normal
+		}
+
+		strong, b {
+			font-style: normal
+		}
+
+		a {
+			text-decoration: none
+		}
+
+		.content {
+			width: 500px;
+			margin: 50px auto;
+			border: 1px solid #cccccc;
+			font-size: 16px;
+		}
+
+		.input_zone {
+			border-bottom: 1px solid #b7b1b1;
+			height: 25px;
+			overflow: hidden;
+			padding: 10px 0 10px 10px;
+		}
+
+		.input_zone1 .input-cls {
+			display: none;
+		}
+
+		.input-cls {
+			width: 100%;
+			height: 25px;
+			border: 0;
+			font-size: 16px;
+		}
+
+		.title {
+			width: 100%;
+			height: 25px;
+			line-height: 25px;
+		}
+
+		.title-content {
+			width: 80%;
+			display: inline-block;
+			height: 25px;
+			vertical-align: bottom;
+			border: 0;
+		}
+
+		.opera-content {
+			width: 15%;
+			margin-left: 10px;
+			display: inline-block;
+			height: 25px;
+			line-height: 25px;
+			text-align: center;
+
+		}
+
+		.opera-btn {
+			display: inline-block;
+			border: 1px solid #d28f9b;
+			width: 100%;
+			cursor: pointer;
+		}
+
+		.save-btn {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+
+<div class="content">
+	<div class="input_zone input_zone1">
+		<div class="title-content">
+			<div class="title">qewqewq</div>
+			<input type="text" class="input-cls"/>
+		</div>
+		<div class="opera-content">
+			<div class="opera-btn edit-btn">编辑</div>
+			<div class="opera-btn save-btn">提交</div>
+		</div>
+	</div>
+
+	<div class="input_zone input_zone2">
+		<div class="title-content">
+			<input type="text" disabled class="input-cls" value="sdfdsf"/>
+		</div>
+		<div class="opera-content">
+			<div class="opera-btn edit-btn">编辑</div>
+			<div class="opera-btn save-btn">提交</div>
+		</div>
+	</div>
+
+</div>
+<script>
+
+	var input_zone1 = document.querySelector(".input_zone1"),
+		editBtn1 = input_zone1.querySelector(".edit-btn"),
+		saveBtn1 = input_zone1.querySelector(".save-btn"),
+		title1 = input_zone1.querySelector(".title"),
+		inputCls1 = input_zone1.querySelector(".input-cls");
+
+	var input_zone2 = document.querySelector(".input_zone2"),
+		editBtn2 = input_zone2.querySelector(".edit-btn"),
+		saveBtn2 = input_zone2.querySelector(".save-btn"),
+		inputCls2 = input_zone2.querySelector(".input-cls");
+
+	editBtn1.onclick = function () {
+		this.style.display = "none";
+		saveBtn1.style.display = "block";
+		inputCls1.value = title1.innerHTML;
+		title1.style.display = "none";
+		inputCls1.style.display = "block";
+		inputCls1.focus();
+
+	}
+	saveBtn1.onclick = function () {
+		saveBtn1.style.display = "none";
+		this.style.display = "block";
+		title1.innerHTML = inputCls1.value;
+		inputCls1.style.display = "none";
+		title1.style.display = "block";
+	}
+
+
+	editBtn2.onclick = function () {
+		this.style.display = "none";
+		saveBtn2.style.display = "block";
+		inputCls2.disabled = "";
+		inputCls2.focus();
+
+	}
+	saveBtn2.onclick = function () {
+		this.style.display = "none";
+		editBtn2.style.display = "block";
+		inputCls2.disabled = "true";
+	}
+
+</script>
+
+</body>
+</html>
