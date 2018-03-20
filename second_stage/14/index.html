@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>14-肖金峰</title>
+	<style>
+		body, p, ul, dl, dd, ol, h1, h2, h3, h4, h5, h6 {
+			margin: 0
+		}
+
+		ul, ol {
+			padding-left: 0;
+			list-style: none
+		}
+
+		em, i {
+			font-style: normal
+		}
+
+		strong, b {
+			font-style: normal
+		}
+
+		a {
+			text-decoration: none
+		}
+
+		.content {
+			margin: 50px auto;
+			width: 500px;
+			border: 1px solid #cccccc;
+			padding: 15px;
+		}
+
+		.oprea {
+			margin-bottom: 15px;
+		}
+
+		p span {
+			color: #ff0000;
+		}
+
+		p label {
+			color: #ff2cee;
+		}
+
+	</style>
+</head>
+<body>
+<div class="content">
+
+	<div class="oprea">
+		<input class="search-input" type="text">
+		<button class="search-btn">搜索</button>
+		<button class="replace-btn">替换为</button>
+		<input type="text" class="replace-input"/>
+	</div>
+	<div class="article-content">
+		<p>张家界是湖南省辖地级市，原名大庸市，辖2个市辖区（永定区、武陵源区）、2个县（慈利县、桑植县）。位于湖南西北部，澧水中上游，属武陵山区腹地。</p>
+		<p>张家界因旅游建市，是中国最重要的旅游城市之一，是湘鄂渝黔革命根据地的发源地和中心区域。</p>
+		<p>1982年9月，张家界国家森林公园成为中国第一个国家森林公园。</p>
+		<p>1988年8月，张家界武陵源风景名胜区被列入国家重点风景名胜区；</p>
+		<p>1992年，由张家界国家森林公园等三大景区构成的武陵源风景名胜区被联合国教科文组织列入《世界自然遗产名录》；2004年2月，被列入全球首批《世界地质公园》；</p>
+		<p>2007年，被列入中国首批国家5A级旅游景区。</p>
+		<p>2017年，被授予“国家森林城市”荣誉称号。</p>
+	</div>
+
+</div>
+<script>
+	var searchBtn = document.querySelector(".search-btn"),
+		replaceBtn = document.querySelector(".replace-btn"),
+		searchInput = document.querySelector(".search-input"),
+		replaceInput = document.querySelector(".replace-input"),
+		pList = document.querySelector(".article-content").getElementsByTagName("p");
+
+	searchBtn.onclick = function () {
+		var searchValue = searchInput.value;
+		if (searchValue.trim()) {
+			for (var i = 0, len = pList.length; i < len; i++) {
+				pList[i].innerHTML = pList[i].innerHTML.replace(searchValue, "<span>" + searchValue + "</span>")
+			}
+		}
+	};
+
+	replaceBtn.onclick = function () {
+		var searchValue = searchInput.value;
+		var replaceValue = replaceInput.value;
+		if (searchValue.trim() && replaceValue.trim()) {
+			for (var i = 0, len = pList.length; i < len; i++) {
+				pList[i].innerHTML = pList[i].innerHTML.replace(searchValue, "<label>" + replaceValue + "</label>")
+			}
+		}
+	};
+
+
+</script>
+
+</body>
+</html>
