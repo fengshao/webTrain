@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>13-肖金峰</title>
+	<style>
+		body, p, ul, dl, dd, ol, h1, h2, h3, h4, h5, h6 {
+			margin: 0
+		}
+
+		ul, ol {
+			padding-left: 0;
+			list-style: none
+		}
+
+		em, i {
+			font-style: normal
+		}
+
+		strong, b {
+			font-style: normal
+		}
+
+		a {
+			text-decoration: none
+		}
+
+		.content {
+			margin: 50px auto;
+			width: 500px;
+			font-size: 0;
+		}
+
+		.public-cls {
+			width: calc(100% / 4);
+			display: inline-block;
+			font-size: 16px;
+			text-align: center;
+			vertical-align: middle;
+		}
+
+		.commodity-title-content .public-cls {
+			font-weight: bold;
+			background-color: #cccccc;
+			height: 40px;
+			line-height: 40px;
+		}
+
+		.commodity-content {
+			padding: 15px 0;
+			border-bottom: 1px solid #cccccc;
+		}
+
+		.public-cls img {
+			width: 80%;
+		}
+
+		.img-content {
+			font-size: 0;
+		}
+
+		.add-btn, .reduce-btn {
+			width: 30px;
+			height: 32px;
+			border: 1px solid #cccccc;
+			padding: 0;
+		}
+
+		.num-input {
+			width: 28%;
+			padding: 0 5px;
+			height: 30px;
+			border: 1px solid #cccccc;
+		}
+
+		.price-cls, .total-cls {
+			color: #ff0000;
+			font-weight: bold;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			word-break: normal;
+			padding: 0 5px;
+			box-sizing: border-box;
+		}
+
+		.all-price-content {
+			font-size: 16px;
+			font-weight: 400;
+			width: 80%;
+			text-align: right;
+		}
+
+		.all-price-content span {
+			font-size: 18px;
+			color: #ff0000;
+			font-weight: bold;
+		}
+
+		.all-num {
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+
+<div class="content">
+	<div class="commodity-title-content">
+		<div class="public-cls">商品</div>
+		<div class="public-cls">单价</div>
+		<div class="public-cls">数量</div>
+		<div class="public-cls">小计</div>
+	</div>
+	<ul>
+
+		<li class="commodity-content">
+			<div class="public-cls img-content">
+				<img src="images/1.jpg">
+			</div>
+			<div class="public-cls price-cls">8</div>
+			<div class="public-cls">
+				<button class="reduce-btn">-</button>
+				<input type="text" value="18" class="num-input"/>
+				<button class="add-btn">+</button>
+			</div>
+			<div class="public-cls total-cls">64</div>
+		</li>
+		<li class="commodity-content">
+			<div class="public-cls img-content">
+				<img src="images/2.jpg">
+			</div>
+			<div class="public-cls price-cls">3218</div>
+			<div class="public-cls">
+				<button class="reduce-btn">-</button>
+				<input type="text" value="42" class="num-input"/>
+				<button class="add-btn">+</button>
+			</div>
+			<div class="public-cls total-cls">64</div>
+		</li>
+		<li class="commodity-content">
+			<div class="public-cls img-content">
+				<img src="images/3.jpg">
+			</div>
+			<div class="public-cls price-cls">43518</div>
+			<div class="public-cls">
+				<button class="reduce-btn">-</button>
+				<input type="text" value="27" class="num-input"/>
+				<button class="add-btn">+</button>
+			</div>
+			<div class="public-cls total-cls">64</div>
+		</li>
+		<li class="commodity-content">
+			<div class="public-cls img-content">
+				<img src="images/4.jpg">
+			</div>
+			<div class="public-cls price-cls">1908</div>
+			<div class="public-cls">
+				<button class="reduce-btn">-</button>
+				<input type="text" value="2978" class="num-input"/>
+				<button class="add-btn">+</button>
+			</div>
+			<div class="public-cls total-cls">64</div>
+		</li>
+	</ul>
+	<div class="all-price-content">
+		<div class="all-num">
+			已选<span>123</span>个
+		</div>
+		<div class="all-price">
+			总价<span>13421</span>￥
+		</div>
+	</div>
+</div>
+<script>
+	var commodityElmList = document.querySelectorAll(".commodity-content"),
+		numEmlList = document.querySelectorAll(".num-input"),
+		priceEmlList = document.querySelectorAll(".price-cls"),
+		totalEmlList = document.querySelectorAll(".total-cls"),
+		addBtnEmlList = document.querySelectorAll(".add-btn"),
+		reduceBtnEmlList = document.querySelectorAll(".reduce-btn");
+
+	(function () {
+
+		for (var i = 0, len = commodityElmList.length; i < len; i++) {
+			commodityElmList[i].querySelector(".total-cls").innerHTML =
+				commodityElmList[i].querySelector(".num-input").value * commodityElmList[i].querySelector(".price-cls").innerHTML;
+			totalEmlList[i].setAttribute("title", totalEmlList[i].innerHTML);
+
+		}
+		getAllPriceAndNum();
+		addEvent();
+	})();
+
+	function getAllPriceAndNum() {
+		var allPrice = 0, allNum = 0;
+
+		for (var i = 0, len = totalEmlList.length; i < len; i++) {
+			allPrice = parseFloat(allPrice) + parseFloat(totalEmlList[i].innerHTML);
+		}
+		for (var i = 0, len = numEmlList.length; i < len; i++) {
+			allNum = parseInt(allNum) + parseInt(numEmlList[i].value);
+		}
+		document.querySelector(".all-num").getElementsByTagName("span")[0].innerHTML = allNum;
+		document.querySelector(".all-price").getElementsByTagName("span")[0].innerHTML = allPrice;
+	}
+
+	function addEvent() {
+
+		for (var i = 0, len = addBtnEmlList.length; i < len; i++) {
+			(function (i) {
+				addBtnEmlList[i].onclick = function () {
+					if (parseInt(numEmlList[i].value) >= 0) {
+						numEmlList[i].value = parseInt(numEmlList[i].value) + 1;
+						totalEmlList[i].innerHTML = parseInt(numEmlList[i].value) * parseInt(priceEmlList[i].innerHTML);
+						totalEmlList[i].setAttribute("title", totalEmlList[i].innerHTML);
+						getAllPriceAndNum();
+					}
+				};
+
+				reduceBtnEmlList[i].onclick = function () {
+					if (parseInt(numEmlList[i].value) > 0) {
+						numEmlList[i].value = parseInt(numEmlList[i].value) - 1;
+						totalEmlList[i].innerHTML = parseInt(numEmlList[i].value) * parseInt(priceEmlList[i].innerHTML);
+						totalEmlList[i].setAttribute("title", totalEmlList[i].innerHTML);
+						getAllPriceAndNum();
+					}
+				};
+
+
+			})(i)
+		}
+
+
+	}
+
+
+</script>
+</body>
+</html>
