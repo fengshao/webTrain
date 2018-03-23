@@ -174,7 +174,7 @@
 
 	(function () {
 		if (leftNav[0]) {
-			leftNav[leftNavIndex] ? leftNav[leftNavIndex].className = "active" : leftNav[0].className = "active";
+			leftNav[leftNavIndex - 1] ? leftNav[leftNavIndex - 1].className = "active" : leftNav[0].className = "active";
 		}
 
 		// for (var i = 0, len = leftNav.length; i < len; i++) {
@@ -185,22 +185,28 @@
 
 		seclcetRightContent();
 		addEvent();
-	}());
+	})()
 
 	function seclcetRightContent() {
-		imgContentList[leftNavIndex].className = "img-content img-content-active";
-		var imgList = imgContentList[leftNavIndex].querySelector(".img-loop-content").getElementsByTagName("img");
-		var elm = "";
-		if (imgList.length > 0) {
-			imgList[imgIndex] ? imgList[imgIndex].className = "show-img" : imgList[0].className = "show-img";
-			for (var j = 0, lens = imgList.length; j < lens; j++) {
-				var classStr = "";
-				if (j == imgIndex) {
-					classStr = "bottom-nav-active";
+		for (var i = 0, len = imgContentList.length; i < len; i++) {
+			imgContentList[i].className = "img-content";
+			if ((i + 1) === leftNavIndex) {
+				imgContentList[i].className = "img-content img-content-active";
+				var imgList = imgContentList[i].querySelector(".img-loop-content").getElementsByTagName("img");
+				var elm = "";
+				if (imgList.length > 0) {
+					imgList[(imgIndex - 1)] ? imgList[(imgIndex - 1)].className = "show-img" : imgList[0].className = "show-img";
+					for (var j = 0, lens = imgList.length; j < lens; j++) {
+						var classStr = "";
+						if (j == (imgIndex - 1)) {
+							classStr = "bottom-nav-active";
+						}
+						elm += "<span class='" + classStr + "'>" + (j + 1) + "</span>"
+					}
 				}
-				elm += "<span class='" + classStr + "'>" + (j + 1) + "</span>"
+
+				document.querySelector(".img-content-active").querySelector(".bottom-nav").innerHTML = elm;
 			}
-			document.querySelector(".img-content-active").querySelector(".bottom-nav").innerHTML = elm;
 		}
 		imgBtn();
 	}
@@ -208,11 +214,12 @@
 	function addEvent() {
 		for (var i = 0, len = leftNav.length; i < len; i++) {
 			(function (i) {
-				leftNav[i].onmouseenter = function () {
-					leftNav[leftNavIndex].className = "";
+				leftNav[i].onclick = function () {
+					for (var j = 0, len = leftNav.length; j < len; j++) {
+						leftNav[j].className = ""
+					}
 					this.className = "active";
-					imgContentList[leftNavIndex].className = "img-content";
-					leftNavIndex = i;
+					leftNavIndex = i + 1;
 					seclcetRightContent();
 				}
 			}(i))
@@ -225,11 +232,15 @@
 		var imgList = imgActive && imgActive.querySelector(".img-loop-content") && imgActive.querySelector(".img-loop-content").getElementsByTagName("img");
 		for (var i = 0, len = imgNavList && imgNavList.length; i < len; i++) {
 			(function (i) {
-				imgNavList[i].onmouseenter = function () {
-					imgNavList[imgIndex].className = "";
+				imgNavList[i].onclick = function () {
+					for (var j = 0, len = imgNavList && imgNavList.length; j < len; j++) {
+						imgNavList[j].className = ""
+					}
 					this.className = "bottom-nav-active";
-					imgList[imgIndex].className = "";
-					imgIndex = i;
+
+					for (var j = 0, lens = imgList && imgList.length; j < lens; j++) {
+						imgList[j].className = "";
+					}
 					imgList ? imgList[i].className = "show-img" : "";
 				}
 			}(i))
@@ -238,6 +249,5 @@
 
 
 </script>
-
 </body>
 </html>
