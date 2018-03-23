@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>Title</title>
+	<style>
+		body, p, ul, dl, dd, ol, h1, h2, h3, h4, h5, h6 {
+			margin: 0
+		}
+
+		ul, ol {
+			padding-left: 0;
+			list-style: none
+		}
+
+		em, i {
+			font-style: normal
+		}
+
+		strong, b {
+			font-style: normal
+		}
+
+		a {
+			text-decoration: none
+		}
+
+		input, button, select, textarea {
+			outline: none;
+		}
+
+		textarea {
+			resize: none;
+		}
+
+		.content {
+			margin: 50px auto;
+			width: 600px;
+			height: 400px;
+			border: 1px solid #cccccc;
+			font-size: 0;
+		}
+
+		.left-nav {
+			font-size: 16px;
+			width: 40px;
+			height: 100%;
+			display: inline-block;
+			vertical-align: top;
+		}
+
+		span {
+			display: inline-block;
+			width: 100%;
+			height: 30px;
+			line-height: 30px;
+			background-color: #b7b1b1;
+			cursor: pointer;
+			text-align: center;
+		}
+
+		.left-nav span.active {
+			background-color: #181d17;
+			color: #ffffff;
+
+		}
+
+		.right-img-content {
+			font-size: 16px;
+			width: 560px;
+			height: 100%;
+			display: inline-block;
+			vertical-align: top;
+		}
+
+		.img-content {
+			width: 100%;
+			height: 100%;
+			position: relative;
+			display: none;
+		}
+
+		.img-loop-content {
+			position: relative;
+			width: 100%;
+			height: 100%;
+		}
+
+		.img-loop-content img {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			display: none;
+		}
+
+		.img-content.img-content-active {
+			display: block;
+		}
+
+		.bottom-nav {
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			font-size: 0;
+		}
+
+		.bottom-nav span {
+			font-size: 16px;
+			width: 30px;
+		}
+
+		.bottom-nav span.bottom-nav-active {
+			background-color: #d28f9b;
+			color: #dccfcf;
+		}
+
+		.img-loop-content .show-img {
+			display: block;
+		}
+
+	</style>
+</head>
+<body>
+<div class="content">
+	<div class="left-nav">
+		<span class="">1</span>
+		<span class="">2</span>
+		<span>3</span>
+	</div>
+	<div class="right-img-content">
+		<div class="img-content ">
+			<div class="img-loop-content">
+				<img src="images/s1.jpg">
+				<img src="images/s2.jpg">
+				<img src="images/s3.jpg">
+				<img src="images/s4.jpg">
+			</div>
+			<div class="bottom-nav">
+			</div>
+		</div>
+
+		<div class="img-content">
+			<div class="img-loop-content">
+				<img src="images/m1.jpg">
+				<img src="images/m2.jpg">
+				<img src="images/m3.jpg">
+				<img src="images/m4.jpg">
+				<img src="images/m5.jpg">
+			</div>
+			<div class="bottom-nav"></div>
+		</div>
+
+		<div class="img-content">
+			<div class="img-loop-content">
+				<img src="images/1.jpg">
+				<img src="images/2.jpg">
+				<img src="images/3.jpg">
+			</div>
+			<div class="bottom-nav"></div>
+		</div>
+
+	</div>
+</div>
+<script>
+	var leftNav = document.querySelector(".left-nav").getElementsByTagName("span"),
+		imgContentList = document.getElementsByClassName("img-content"),
+		leftNavIndex = 2, imgIndex = 2;
+
+	(function () {
+		if (leftNav[0]) {
+			leftNav[leftNavIndex - 1] ? leftNav[leftNavIndex - 1].className = "active" : leftNav[0].className = "active";
+		}
+
+		// for (var i = 0, len = leftNav.length; i < len; i++) {
+		// 	if (leftNav[i].className.indexOf("active") != -1) {
+		// 		leftNavIndex = 1;
+		// 	}
+		// }
+
+		seclcetRightContent();
+		addEvent();
+	})()
+
+	function seclcetRightContent() {
+		for (var i = 0, len = imgContentList.length; i < len; i++) {
+			imgContentList[i].className = "img-content";
+			if ((i + 1) === leftNavIndex) {
+				imgContentList[i].className = "img-content img-content-active";
+				var imgList = imgContentList[i].querySelector(".img-loop-content").getElementsByTagName("img");
+				var elm = "";
+				if (imgList.length > 0) {
+					imgList[(imgIndex - 1)] ? imgList[(imgIndex - 1)].className = "show-img" : imgList[0].className = "show-img";
+					for (var j = 0, lens = imgList.length; j < lens; j++) {
+						var classStr = "";
+						if (j == (imgIndex - 1)) {
+							classStr = "bottom-nav-active";
+						}
+						elm += "<span class='" + classStr + "'>" + (j + 1) + "</span>"
+					}
+				}
+
+				document.querySelector(".img-content-active").querySelector(".bottom-nav").innerHTML = elm;
+			}
+		}
+		imgBtn();
+	}
+
+	function addEvent() {
+		for (var i = 0, len = leftNav.length; i < len; i++) {
+			(function (i) {
+				leftNav[i].onclick = function () {
+					for (var j = 0, len = leftNav.length; j < len; j++) {
+						leftNav[j].className = ""
+					}
+					this.className = "active";
+					leftNavIndex = i + 1;
+					seclcetRightContent();
+				}
+			}(i))
+		}
+	}
+
+	function imgBtn() {
+		var imgActive = document.querySelector(".img-content-active");
+		var imgNavList = imgActive && imgActive.querySelector(".bottom-nav") && imgActive.querySelector(".bottom-nav").getElementsByTagName("span");
+		var imgList = imgActive && imgActive.querySelector(".img-loop-content") && imgActive.querySelector(".img-loop-content").getElementsByTagName("img");
+		for (var i = 0, len = imgNavList && imgNavList.length; i < len; i++) {
+			(function (i) {
+				imgNavList[i].onclick = function () {
+					for (var j = 0, len = imgNavList && imgNavList.length; j < len; j++) {
+						imgNavList[j].className = ""
+					}
+					this.className = "bottom-nav-active";
+
+					for (var j = 0, lens = imgList && imgList.length; j < lens; j++) {
+						imgList[j].className = "";
+					}
+					imgList ? imgList[i].className = "show-img" : "";
+				}
+			}(i))
+		}
+	}
+
+
+</script>
+</body>
+</html>
