@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>16-肖金峰</title>
+	<style>
+		body, p, ul, dl, dd, ol, h1, h2, h3, h4, h5, h6 {
+			margin: 0
+		}
+
+		ul, ol {
+			padding-left: 0;
+			list-style: none
+		}
+
+		em, i {
+			font-style: normal
+		}
+
+		strong, b {
+			font-style: normal
+		}
+
+		a {
+			text-decoration: none
+		}
+
+		.content {
+			margin: 50px auto;
+			width: 650px;
+			min-height: 300px;
+			border: 1px solid #cccccc;
+		}
+
+		ul {
+			overflow: hidden;
+		}
+
+		li {
+			width: calc(100% / 4);
+			/*height: 280px;*/
+			float: left;
+			padding: 10px;
+			box-sizing: border-box;
+			font-size: 0;
+			text-align: center;
+
+		}
+
+		img {
+			width: 80%;
+		}
+
+		span {
+			margin-top: 10px;
+			display: block;
+			font-size: 12px;
+			width: 100%;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+
+		label {
+			font-size: 16px;
+			color: red;
+		}
+
+		.opera {
+			text-align: right;
+			margin-right: 10px;
+			margin-bottom: 10px;
+		}
+
+		button {
+			cursor: pointer;
+		}
+
+	</style>
+</head>
+<body>
+<div class="content">
+	<div content="commodity">
+		<ul>
+		</ul>
+	</div>
+	<div class="opera">
+		<button class="asc-btn">升序</button>
+		<button class="desc-btn">降序</button>
+		<button class="random-btn">随机</button>
+	</div>
+
+</div>
+<script>
+	var commodityList = [
+		{
+			id: 1,
+			img: "images/g4.jpg",
+			price: 123,
+			title: "买买买"
+		},
+		{
+			id: 2,
+			img: "images/g2.jpg",
+			price: 43231,
+			title: "买买买"
+		},
+		{
+			id: 3,
+			img: "images/g1.jpg",
+			price: 55,
+			title: "我这么萌买我"
+		},
+		{
+			id: 4,
+			img: "images/g4.jpg",
+			price: 12,
+			title: "买买买"
+		},
+		{
+			id: 5,
+			img: "images/g4.jpg",
+			price: 78.52,
+			title: "买买买"
+		},
+		{
+			id: 6,
+			img: "images/g3.jpg",
+			price: 792.4,
+			title: "买买买"
+		},
+		{
+			id: 7,
+			img: "images/g2.jpg",
+			price: 123.5,
+			title: "买买买"
+		},
+		{
+			id: 8,
+			img: "images/g1.jpg",
+			price: 88.88,
+			title: "剁手也要买"
+		}
+	];
+	var ascBtn = document.querySelector(".asc-btn"),
+		descBtn = document.querySelector(".desc-btn"),
+		randomBtn = document.querySelector(".random-btn");
+
+	createElement();
+	ascBtn.onclick = function () {
+		for (var i = 0; i < commodityList.length - 1; i++) {
+			for (var j = commodityList.length - 1; j > i; j--) {
+				if (commodityList[j].price < commodityList[j - 1].price) {
+					commodityList[j] = [commodityList[j - 1], commodityList[j - 1] = commodityList[j]][0]
+				}
+			}
+		}
+		createElement();
+	};
+	descBtn.onclick = function () {
+		for (var i = 0; i < commodityList.length - 1; i++) {
+			for (var j = commodityList.length - 1; j > i; j--) {
+				if (commodityList[j].price > commodityList[j - 1].price) {
+					commodityList[j] = [commodityList[j - 1], commodityList[j - 1] = commodityList[j]][0]
+				}
+			}
+		}
+		createElement();
+	};
+	randomBtn.onclick = function () {
+		var elm = "";
+		var randomArr = [];
+
+		for (i = 0; i < commodityList.length; i++) {
+			randomArr[i] = i;
+		}
+		for (i = 0; i < commodityList.length; i++) {
+			var index = Math.floor(Math.random() * (randomArr.length)); //随机取一个位置
+			elm += '<li> <img src="' + commodityList[randomArr[index]].img + '"> ' +
+				'<span>' + commodityList[randomArr[index]].title +
+				'<label>' + commodityList[randomArr[index]].price + '￥</label>' +
+				'</span> </li>'
+			console.log("randomArr", randomArr[index]);
+			randomArr.splice(index, 1);
+		}
+		// console.log("------------------------------------");
+
+		document.querySelector("ul").innerHTML = elm;
+
+
+	};
+
+	function createElement() {
+		var elm = "";
+		commodityList.forEach(function (value, index) {
+			elm += '<li> <img src="' + value.img + '"> <span>' + value.title + '<label>' + value.price + '￥</label></span> </li>'
+		});
+		document.querySelector("ul").innerHTML = elm;
+	}
+
+
+	// for (var num, i = 0; i < count; i++) {
+	// 	do {
+	// 		num = Math.floor(Math.random() * count);
+	// 	} while (original[num] == null);
+	// 	original[num] = null;
+	// }
+	// console.log(original);
+	//
+	// original.sort(function () {
+	// 	return 0.5 - Math.random();
+	// });
+	// console.log(original);
+
+	// for (var i = 0; i < count; i++) {
+	// 	console.log(original[num] + " , ");
+	// }
+
+</script>
+
+</body>
+</html>
