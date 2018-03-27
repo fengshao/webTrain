@@ -96,8 +96,14 @@
 		contentHeight = parseFloat(getComputedStyle(content).height) - parseFloat(getComputedStyle(content).paddingTop) - parseFloat(getComputedStyle(content).borderTopWidth),
 		scrollContentHeight = parseFloat(getComputedStyle(scrollContent).height) - contentHeight;
 
+	function getHeight() {
+		contentHeight = parseFloat(getComputedStyle(content).height) - parseFloat(getComputedStyle(content).paddingTop) - parseFloat(getComputedStyle(content).borderTopWidth),
+			scrollContentHeight = parseFloat(getComputedStyle(scrollContent).height) - contentHeight;
+	}
+
 	topSscrollBtn.onmousedown = function () {
 		var nowTop = parseFloat(getComputedStyle(scrollContent).marginTop);
+		getHeight();
 		setIntervaler = setInterval(function () {
 			if (nowTop <= 0 && -nowTop < scrollContentHeight) {
 				nowTop = nowTop - 5
@@ -114,15 +120,21 @@
 			clearInterval(setIntervaler);
 		}
 	};
-	bottomSscrollBtn.onmousedown = function () {
 
+	topSscrollBtn.onmouseleave = function () {
+		if (setIntervaler) {
+			clearInterval(setIntervaler);
+		}
+	};
+
+	bottomSscrollBtn.onmousedown = function () {
+		getHeight();
+		var nowTop = parseFloat(getComputedStyle(scrollContent).marginTop);
 		setIntervaler = setInterval(function () {
-			var nowTop = parseFloat(getComputedStyle(scrollContent).marginTop);
 			if (nowTop < 0) {
 				nowTop = nowTop + 5;
 				scrollContent.style.marginTop = nowTop + "px";
 			} else {
-				console.log("cl")
 				if (setIntervaler) {
 					clearInterval(setIntervaler);
 				}
@@ -131,6 +143,17 @@
 
 	};
 
+	bottomSscrollBtn.onmouseup = function () {
+		if (setIntervaler) {
+			clearInterval(setIntervaler);
+		}
+	};
+	
+	bottomSscrollBtn.onmouseleave = function () {
+		if (setIntervaler) {
+			clearInterval(setIntervaler);
+		}
+	}
 
 </script>
 
