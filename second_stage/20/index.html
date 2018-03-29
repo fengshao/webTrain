@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>20-肖金峰</title>
+	<style>
+		body, p, ul, dl, dd, ol, h1, h2, h3, h4, h5, h6 {
+			margin: 0
+		}
+
+		ul, ol {
+			padding-left: 0;
+			list-style: none
+		}
+
+		em, i {
+			font-style: normal
+		}
+
+		strong, b {
+			font-style: normal
+		}
+
+		a {
+			text-decoration: none
+		}
+
+		.content {
+			margin: 50px auto;
+			width: 800px;
+			padding: 20px;
+			border: 1px solid #cccccc;
+			text-align: center;
+		}
+
+		.time-cls {
+			width: 41px;
+			height: 61px;
+		}
+
+		.hour-ten {
+			margin-left: 50px;
+		}
+
+		.mounth-ten, .day-ten {
+			margin-left: 20px;
+		}
+
+		.colon {
+			animation: twinkle 1s linear infinite;
+			-webkit-animation: twinkle 1s linear infinite; /*Safari and Chrome*/
+		}
+
+		@keyframes twinkle {
+			from {
+				opacity: 1;
+			}
+			to {
+				opacity: 0;
+			}
+		}
+
+		@-webkit-keyframes twinkle /*Safari and Chrome*/
+		{
+			from {
+				opacity: 1;
+			}
+			to {
+				opacity: 0;
+			}
+		}
+	</style>
+</head>
+<body>
+<div class="content">
+	<img class="time-cls year-kilobit"/>
+	<img class="time-cls year-hundred"/>
+	<img class="time-cls year-ten"/>
+	<img class="time-cls year-ones"/>
+	<!--<img class="colon" src="images/d.png"/>-->
+	<img class="time-cls mounth-ten"/>
+	<img class="time-cls mounth-ones"/>
+	<!--<img class="colon" src="images/d.png"/>-->
+	<img class="time-cls day-ten"/>
+	<img class="time-cls day-ones"/>
+
+
+	<img class="time-cls hour-ten"/>
+	<img class="time-cls hour-ones"/>
+	<img class="colon" src="images/d.png"/>
+	<img class="time-cls minute-ten"/>
+	<img class="time-cls minute-ones"/>
+	<img class="colon" src="images/d.png"/>
+	<img class="time-cls second-ten"/>
+	<img class="time-cls second-ones"/>
+
+</div>
+<script>
+	var imgs = document.querySelectorAll(".time-cls"),
+		imgArr = [
+			"images/0.png",
+			"images/1.png",
+			"images/2.png",
+			"images/3.png",
+			"images/4.png",
+			"images/5.png",
+			"images/6.png",
+			"images/7.png",
+			"images/8.png",
+			"images/9.png"
+		];
+
+	function nowDate() {
+		var date = new Date(),
+			dateArr = [
+				date.getFullYear().toString().substring(0, 1),
+				date.getFullYear().toString().substring(1, 2),
+				date.getFullYear().toString().substring(2, 3),
+				date.getFullYear().toString().substring(3, 4),
+				addZero(date.getMonth() + 1).substring(0, 1),
+				addZero(date.getMonth() + 1).substring(1, 2),
+				addZero(date.getDate()).substring(0, 1),
+				addZero(date.getDate()).substring(1, 2),
+				addZero(date.getHours()).substring(0, 1),
+				addZero(date.getHours()).substring(1, 2),
+				addZero(date.getMinutes()).substring(0, 1),
+				addZero(date.getMinutes()).substring(1, 2),
+				addZero(date.getSeconds()).substring(0, 1),
+				addZero(date.getSeconds()).substring(1, 2)
+			];
+
+		for (var i = 0, len = imgs.length; i < len; i++) {
+			imgs[i].setAttribute("src", imgArr[dateArr[i]]);
+		}
+	}
+
+	setInterval(function () {
+		nowDate();
+	}, 1000);
+
+	function addZero(num) {
+
+		return num < 10 ? "0" + num : num + "";
+
+	}
+
+</script>
+
+</body>
+</html>
