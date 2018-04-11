@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>28-肖金峰</title>
+	<style>
+		body, p, ul, dl, dd, ol, h1, h2, h3, h4, h5, h6 {
+			margin: 0
+		}
+
+		ul, ol {
+			padding-left: 0;
+			list-style: none
+		}
+
+		em, i {
+			font-style: normal
+		}
+
+		strong, b {
+			font-style: normal
+		}
+
+		a {
+			text-decoration: none
+		}
+
+		.content {
+			position: relative;
+			margin: 50px auto;
+			width: 600px;
+			height: 400px;
+			background-color: #2e2e0a;
+		}
+
+		.drop-div {
+			position: absolute;
+			border: 2px solid #cccccc;
+			left: 20px;
+			top: 30px;
+			width: 200px;
+			height: 200px;
+			cursor: move;
+		}
+
+		.drop-btn {
+			position: absolute;
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			background-color: #ffffff;
+		}
+
+		.top-left-drop-btn {
+			left: -5px;
+			top: -5px;
+			cursor: nw-resize;
+		}
+
+		.top-center-drop-btn {
+			left: calc(50% - 5px);
+			top: -5px;
+			cursor: n-resize;
+		}
+
+		.top-right-drop-btn {
+			right: -5px;
+			top: -5px;
+			cursor: ne-resize;
+		}
+
+		.middle-right-drop-btn {
+			right: -5px;
+			top: calc(50% - 5px);
+			cursor: e-resize;
+		}
+
+		.bottom-right-drop-btn {
+			right: -5px;
+			bottom: -5px;
+			cursor: se-resize;
+		}
+
+		.bottom-center-drop-btn {
+			left: calc(50% - 5px);
+			bottom: -5px;
+			cursor: s-resize;
+		}
+
+		.bottom-left-drop-btn {
+			left: -5px;
+			bottom: -5px;
+			cursor: sw-resize;
+		}
+
+		.middle-left-drop-btn {
+			left: -5px;
+			top: calc(50% - 5px);
+			cursor: w-resize;
+		}
+	</style>
+</head>
+<body>
+
+<div class="content">
+	<div class="drop-div">
+		<div data-type="top-left-drop-btn" class="drop-btn top-left-drop-btn"></div>
+		<div data-type="top-center-drop-btn" class="drop-btn top-center-drop-btn"></div>
+		<div data-type="top-right-drop-btn" class="drop-btn top-right-drop-btn"></div>
+		<div data-type="middle-right-drop-btn" class="drop-btn middle-right-drop-btn"></div>
+		<div data-type="bottom-right-drop-btn" class="drop-btn bottom-right-drop-btn"></div>
+		<div data-type="bottom-center-drop-btn" class="drop-btn bottom-center-drop-btn"></div>
+		<div data-type="bottom-left-drop-btn" class="drop-btn bottom-left-drop-btn"></div>
+		<div data-type="middle-left-drop-btn" class="drop-btn middle-left-drop-btn"></div>
+	</div>
+</div>
+
+<script>
+
+	var dropDiv = document.querySelector(".drop-div"),
+		contentDiv = document.querySelector(".content"),
+		width = parseFloat(getComputedStyle(contentDiv).width),
+		height = parseFloat(getComputedStyle(contentDiv).height);
+
+	var positionObj = {
+		downLeft: 0,
+		downTop: 0,
+		downX: 0,
+		downY: 0,
+		downWidth: 0,
+		downHeight: 0
+	};
+
+	dropDiv.addEventListener("mousedown", dropMousedownFnc);
+
+	function dropMousedownFnc(e) {
+		e = e || window.event;
+		var target = e.target,
+			type = e.target.getAttribute("data-type");
+		positionObj.downLeft = dropDiv.offsetLeft;
+		positionObj.downTop = dropDiv.offsetTop;
+		positionObj.downX = e.clientX;
+		positionObj.downY = e.clientY;
+		positionObj.downWidth = parseFloat(getComputedStyle(dropDiv).width);
+		positionObj.downHeight = parseFloat(getComputedStyle(dropDiv).height);
+
+		if (e.target.className.indexOf("drop-div") != -1) {
+			document.addEventListener("mousemove", dropPositionFnc)
+		}
+
+		switch (type) {
+			case "top-left-drop-btn":
+				// document.addEventListener("mousemove", changeBottomHeight);
+				break;
+			case "top-center-drop-btn":
+				document.addEventListener("mousemove", changeTopHeight);
+				break;
+			case "top-right-drop-btn":
+				// document.addEventListener("mousemove", changeBottomHeight);
+				break;
+			case "middle-right-drop-btn":
+				document.addEventListener("mousemove", changeRightMiddleWidth);
+				break;
+			case "bottom-right-drop-btn":
+				document.addEventListener("mousemove", changeBottomWidthAndHeight);
+				break;
+			case "bottom-center-drop-btn":
+				document.addEventListener("mousemove", changeBottomHeight);
+				break;
+			case "bottom-left-drop-btn":
+				// document.addEventListener("mousemove", changeBottomHeight);
+				break;
+			case "middle-left-drop-btn":
+				// document.addEventListener("mousemove", changeBottomHeight);
+				break;
+		}
+	}
+
+	document.addEventListener("mouseup", function (evt) {
+		document.removeEventListener("mousemove", dropPositionFnc);
+		document.removeEventListener("mousemove", changeBottomHeight);
+		document.removeEventListener("mousemove", changeRightMiddleWidth);
+		document.removeEventListener("mousemove", changeBottomWidthAndHeight);
+		document.removeEventListener("mousemove", changeTopHeight);
+	});
+
+	function changeTopHeight(e) {
+		e = e || window.event;
+		var _Y = positionObj.downY - e.clientY,
+			_X = e.clientX - positionObj.downX,
+			maxHeight = height - dropDiv.offsetTop - 5;
+		console.log(dropDiv.offsetTop)
+		if (dropDiv.offsetTop >= 5) {
+			dropDiv.style.height = (positionObj.downHeight + _Y < 100 ? 100 : positionObj.downHeight + _Y) + "px";
+			dropDiv.style.top = (positionObj.downTop - _Y <= 5 ? 5 : positionObj.downTop - _Y) + "px";
+		}
+	}
+
+	function changeBottomWidthAndHeight(e) {
+		changeBottomHeight(e);
+		changeRightMiddleWidth(e);
+	}
+
+	function changeBottomHeight(e) {
+		e = e || window.event;
+		var _Y = e.clientY - positionObj.downY,
+			_X = e.clientX - positionObj.downX,
+			maxHeight = height - dropDiv.offsetTop - 5;
+		dropDiv.style.height = (positionObj.downHeight + _Y < 100 ? 100 : positionObj.downHeight + _Y > maxHeight ? maxHeight : positionObj.downHeight + _Y) + "px";
+	}
+
+	function changeRightMiddleWidth(e) {
+		e = e || window.event;
+		var _Y = e.clientY - positionObj.downY,
+			_X = e.clientX - positionObj.downX,
+			maxWidth = width - dropDiv.offsetLeft - 5;
+		dropDiv.style.width = (positionObj.downWidth + _X < 100 ? 100 : positionObj.downWidth + _X > maxWidth ? maxWidth : positionObj.downWidth + _X) + "px";
+	}
+
+	function dropPositionFnc(e) {
+		e = e || window.event;
+		var _X = e.clientX - positionObj.downX,
+			_Y = e.clientY - positionObj.downY;
+		dropDiv.style.top = (positionObj.downTop + _Y <= 5 ?
+			5 :
+			positionObj.downTop + _Y >= (height - positionObj.downHeight - 5) ?
+				height - positionObj.downHeight - 5 : positionObj.downTop + _Y) + "px";
+		dropDiv.style.left = (positionObj.downLeft + _X <= 5 ?
+			5 :
+			positionObj.downLeft + _X >= (width - positionObj.downWidth - 5) ?
+				width - positionObj.downWidth - 5 : positionObj.downLeft + _X) + "px";
+	}
+
+</script>
+
+</body>
+</html>
